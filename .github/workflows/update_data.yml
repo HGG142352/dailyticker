@@ -1,0 +1,38 @@
+name: KOSPI Quant Auto Updater
+
+on:
+  schedule:
+    # 매일 UTC 22:00 (KST 07:00), UTC 11:00 (KST 20:00)
+    - cron: '0 22,11 * * *'
+  workflow_dispatch: # 수동 실행 허용
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Data Collectors
+        env:
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: |
+          python top30_data_set.py
+          python dart_quant.py
+          python generate_api_json.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add top30_market_data.json dart_quant_top30.json kospi_top30_api.json ticker_to_dart.json
+          git commit -m "Auto-update quant data" || echo "No changes to commit"
+          git push
