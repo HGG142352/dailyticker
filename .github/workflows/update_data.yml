@@ -2,8 +2,9 @@ name: KOSPI Quant Auto Updater
 
 on:
   schedule:
-    # KST 07:00 = UTC 22:00 (전날), KST 20:00 = UTC 11:00
+    # KST 07:00 = UTC 22:00 (전날), KST 12:00 = UTC 03:00, KST 20:00 = UTC 11:00
     - cron: '0 22 * * 1-5'   # 평일 KST 07:00
+    - cron: '0 3 * * 1-5'    # 평일 KST 12:00 (테스트용)
     - cron: '0 11 * * 1-5'   # 평일 KST 20:00
   workflow_dispatch: # 수동 실행 허용
 
