@@ -2,21 +2,28 @@ name: KOSPI Quant Auto Updater
 
 on:
   schedule:
-    # 매일 UTC 22:00 (KST 07:00), UTC 11:00 (KST 20:00)
-    - cron: '0 22,11 * * *'
+    # KST 07:00 = UTC 22:00 (전날), KST 20:00 = UTC 11:00
+    - cron: '0 22 * * 1-5'   # 평일 KST 07:00
+    - cron: '0 11 * * 1-5'   # 평일 KST 20:00
   workflow_dispatch: # 수동 실행 허용
+
+# JSON 파일을 커밋/push 하기 위해 쓰기 권한 필요
+permissions:
+  contents: write
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -24,15 +31,16 @@ jobs:
       - name: Run Data Collectors
         env:
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
+          TZ: Asia/Seoul
         run: |
-          python top30_data_set.py
-          python dart_quant.py
-          python generate_api_json.py
+          python -X utf8 top30_data_set.py
+          python -X utf8 dart_quant.py
+          python -X utf8 generate_api_json.py
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add top30_market_data.json dart_quant_top30.json kospi_top30_api.json ticker_to_dart.json
-          git commit -m "Auto-update quant data" || echo "No changes to commit"
+          git diff --staged --quiet || git commit -m "chore: auto-update quant data $(date +'%Y-%m-%d %H:%M KST')"
           git push

@@ -220,8 +220,8 @@
     </div>
   </div>
   <div class="header-right">
-    <span style="font-size: 13px; color: var(--muted); margin-right: 15px;">※ 매일 아침 7시 / 저녁 8시 자동 갱신됨</span>
-    <button id="run-btn" disabled style="background: var(--surface); color: var(--muted); cursor: not-allowed; border: 1px solid var(--border);">자동화 모드 활성</button>
+    <span id="update-notice" style="font-size: 13px; color: var(--muted); margin-right: 15px;">※ 매일 아침 7시 / 저녁 8시 자동 갱신됨</span>
+    <button id="refresh-btn" onclick="manualRefresh()" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;background:var(--surface);color:var(--text);transition:background .2s;">🔄 새로고침</button>
   </div>
 </header>
 
@@ -284,10 +284,13 @@
   let allRows   = [];
   let quantData = {};   // ticker → quant dict
 
-  // ── 퀀트 데이터 로드 (정적 JSON) ───────────────────
+  // ── GitHub Raw 기본 URL ──────────────────────────────
+  const RAW_BASE = 'https://raw.githubusercontent.com/HGG142352/dailyticker/main';
+
+  // ── 퀀트 데이터 로드 (GitHub Raw) ───────────────────
   async function loadQuantData() {
     try {
-      const res = await fetch('dart_quant_top30.json');
+      const res = await fetch(`${RAW_BASE}/dart_quant_top30.json?t=${Date.now()}`);
       if (res.ok) {
         const j = await res.json();
         const obj = {};
@@ -299,27 +302,44 @@
     } catch(e){ console.error('퀀트 데이터 파싱 오류:', e); }
   }
 
-  // ── 마켓 데이터 로드 (정적 JSON) ───────────────────
+  // ── 마켓 데이터 로드 (GitHub Raw) ───────────────────
   async function loadMarketData() {
     try {
-      const res = await fetch('top30_market_data.json');
+      const res = await fetch(`${RAW_BASE}/top30_market_data.json?t=${Date.now()}`);
       if (res.ok) {
         const data = await res.json();
         allRows = data;
         renderTable(allRows);
+        const notice = document.getElementById('update-notice');
+        if(notice) notice.textContent = `※ 마지막 조회: ${new Date().toLocaleTimeString('ko-KR')} | 매일 07:00·20:00 자동 갱신`;
       } else {
-        throw new Error("데이터 파일 찾기 실패 (Not Found)");
+        throw new Error("GitHub Raw 데이터 파일을 찾을 수 없습니다.");
       }
     } catch(e){ 
-      document.getElementById('error-box').innerHTML=`<strong>오류:</strong> ${e.message}<br/>※ 터미널에서 데이터 수집 스크립트가 한 번 이상 실행되어야 합니다.`;
+      document.getElementById('error-box').innerHTML=`<strong>오류:</strong> ${e.message}`;
       document.getElementById('error-box').style.display='block';
     }
+  }
+
+  // ── 수동 새로고침 ────────────────────────────────────
+  async function manualRefresh() {
+    const btn = document.getElementById('refresh-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳ 로딩 중...';
+    await loadQuantData();
+    await loadMarketData();
+    btn.disabled = false;
+    btn.innerHTML = '🔄 새로고침';
   }
 
   // ── 초기화 ───────────────────────────────────────────
   async function init() {
     await loadQuantData();
     await loadMarketData();
+    // 30분마다 자동 갱신
+    setInterval(() => {
+      loadQuantData().then(() => loadMarketData());
+    }, 30 * 60 * 1000);
   }
   init();
 

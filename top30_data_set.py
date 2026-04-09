@@ -1,14 +1,30 @@
 import yfinance as yf
 import json
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
+
+KST = ZoneInfo("Asia/Seoul")
 
 
-def get_prev_business_day():
-    """오늘 기준 직전 영업일(D-1) 계산 – 주말은 금요일로 처리"""
-    day = datetime.now().date() - timedelta(days=1)
-    while day.weekday() >= 5:   # 5=토, 6=일
+def get_target_business_day():
+    """
+    KST 16:00 이후 → 당일 종가 시도 (장 마감 15:30 이후 데이터 확정)
+    KST 16:00 이전 → 전 영업일(D-1) 종가 사용
+    주말이면 금요일로 후퇴
+    """
+    now_kst = datetime.now(KST)
+    if now_kst.hour >= 16 and now_kst.weekday() < 5:  # 평일 16시 이후
+        day = now_kst.date()  # 당일
+    else:
+        day = now_kst.date() - timedelta(days=1)  # D-1
+    # 주말이면 금요일로
+    while day.weekday() >= 5:
         day -= timedelta(days=1)
     return day
+
+
+# 하위 호환용 alias
+get_prev_business_day = get_target_business_day
 
 # top30.py 의 함수를 직접 호출
 from top30 import get_kospi_top_30
