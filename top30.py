@@ -30,6 +30,11 @@ def get_kospi_top_30():
             cols = row.find_all('td')
             rank = cols[0].text.strip()
             name = name_tag.text.strip()
+            
+            # 우선주는 퀀트 분석(재무/DART) 대상에서 제외하고 보통주만 담기
+            if name.endswith('우') or name.endswith('우B') or '우(' in name:
+                continue
+
             price = cols[2].text.strip().replace(',', '')
             market_cap = cols[6].text.strip().replace(',', '')
             

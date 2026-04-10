@@ -1,7 +1,12 @@
 {
     "status": "success",
+<<<<<<< Updated upstream
     "latest_update": "2026-04-10 14:42:32",
     "count": 29,
+=======
+    "latest_update": "2026-04-10 07:35:23",
+    "count": 30,
+>>>>>>> Stashed changes
     "data": [
         {
             "rank": null,
@@ -18,8 +23,13 @@
             "gp_a": "0.2222",
             "eps": 5944.03,
             "bps": 69391.76,
+<<<<<<< Updated upstream
             "per": 34.95,
             "pbr": 2.99,
+=======
+            "per": 34.32,
+            "pbr": 2.94,
+>>>>>>> Stashed changes
             "dividend_yield": "1.11%",
             "debt_ratio": "27.93%",
             "current_ratio": "243.3%",
@@ -43,8 +53,13 @@
             "gp_a": "0.2656",
             "eps": 28672.24,
             "bps": 107053.57,
+<<<<<<< Updated upstream
             "per": 35.92,
             "pbr": 9.62,
+=======
+            "per": 34.81,
+            "pbr": 9.32,
+>>>>>>> Stashed changes
             "dividend_yield": "0.3%",
             "debt_ratio": "62.15%",
             "current_ratio": "169.35%",
@@ -68,7 +83,11 @@
             "gp_a": "0.1052",
             "eps": 65492.35,
             "bps": 595405.03,
+<<<<<<< Updated upstream
             "per": 7.48,
+=======
+            "per": 7.47,
+>>>>>>> Stashed changes
             "pbr": 0.82,
             "dividend_yield": "2.04%",
             "debt_ratio": "182.52%",
@@ -93,8 +112,13 @@
             "gp_a": "0.0565",
             "eps": 1447.02,
             "bps": 132335.65,
+<<<<<<< Updated upstream
             "per": 286.28,
             "pbr": 3.13,
+=======
+            "per": 290.94,
+            "pbr": 3.18,
+>>>>>>> Stashed changes
             "dividend_yield": "N/A",
             "debt_ratio": "94.75%",
             "current_ratio": "127.15%",
@@ -118,15 +142,24 @@
             "gp_a": "0.0662",
             "eps": 49367.02,
             "bps": 220886.0,
+<<<<<<< Updated upstream
             "per": 30.52,
             "pbr": 6.82,
+=======
+            "per": 29.39,
+            "pbr": 6.57,
+>>>>>>> Stashed changes
             "dividend_yield": "0.48%",
             "debt_ratio": "281.34%",
             "current_ratio": "89.62%",
             "rev_growth": "+20.10%",
             "op_growth": "+150.59%",
             "ni_growth": "+159.99%",
+<<<<<<< Updated upstream
             "latest_event": "단일판매ㆍ공급계약체결              "
+=======
+            "latest_event": "없음"
+>>>>>>> Stashed changes
         },
         {
             "rank": null,
@@ -143,8 +176,13 @@
             "gp_a": "0.0",
             "eps": 27681.35,
             "bps": 148513.52,
+<<<<<<< Updated upstream
             "per": 20.52,
             "pbr": 3.82,
+=======
+            "per": 20.23,
+            "pbr": 3.77,
+>>>>>>> Stashed changes
             "dividend_yield": "N/A",
             "debt_ratio": "11.93%",
             "current_ratio": "193.56%",
@@ -168,8 +206,13 @@
             "gp_a": "0.1321",
             "eps": 23402.33,
             "bps": 235568.2,
+<<<<<<< Updated upstream
             "per": 67.64,
             "pbr": 6.72,
+=======
+            "per": 67.51,
+            "pbr": 6.71,
+>>>>>>> Stashed changes
             "dividend_yield": "N/A",
             "debt_ratio": "58.98%",
             "current_ratio": "143.21%",
@@ -193,8 +236,13 @@
             "gp_a": "0.1037",
             "eps": 616.25,
             "bps": 18207.22,
+<<<<<<< Updated upstream
             "per": 162.68,
             "pbr": 5.51,
+=======
+            "per": 162.27,
+            "pbr": 5.49,
+>>>>>>> Stashed changes
             "dividend_yield": "N/A",
             "debt_ratio": "125.66%",
             "current_ratio": "112.33%",
@@ -205,6 +253,34 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
+=======
+            "name": "기아",
+            "ticker": "000270",
+            "date": "2026-04-09",
+            "close_price": 150500.0,
+            "volume": 1896387,
+            "industry": "",
+            "ceo": "송호성,최준영(각자 대표이사)",
+            "roe": "17.51%",
+            "roa": "10.54%",
+            "op_margin": "11.79%",
+            "gp_a": "0.2671",
+            "eps": 25150.79,
+            "bps": 143675.39,
+            "per": 5.98,
+            "pbr": 1.05,
+            "dividend_yield": "4.52%",
+            "debt_ratio": "66.11%",
+            "current_ratio": "154.94%",
+            "rev_growth": "+7.65%",
+            "op_growth": "+9.13%",
+            "ni_growth": "+11.36%",
+            "latest_event": "없음"
+        },
+        {
+            "rank": null,
+>>>>>>> Stashed changes
             "name": "KB금융",
             "ticker": "105560",
             "date": "2026-04-09",
@@ -216,10 +292,17 @@
             "roa": "0.66%",
             "op_margin": "N/A",
             "gp_a": "0.0",
+<<<<<<< Updated upstream
             "eps": 14177.56,
             "bps": 168641.81,
             "per": 11.14,
             "pbr": 0.94,
+=======
+            "eps": 14023.36,
+            "bps": 166807.67,
+            "per": 11.0,
+            "pbr": 0.92,
+>>>>>>> Stashed changes
             "dividend_yield": "4.16%",
             "debt_ratio": "1166.98%",
             "current_ratio": "N/A",
@@ -268,8 +351,13 @@
             "gp_a": "0.077",
             "eps": 5921.32,
             "bps": 54348.15,
+<<<<<<< Updated upstream
             "per": 80.43,
             "pbr": 8.76,
+=======
+            "per": 79.46,
+            "pbr": 8.66,
+>>>>>>> Stashed changes
             "dividend_yield": "1.65%",
             "debt_ratio": "239.93%",
             "current_ratio": "88.19%",
@@ -293,8 +381,13 @@
             "gp_a": "0.1147",
             "eps": 17093.5,
             "bps": 229753.32,
+<<<<<<< Updated upstream
             "per": 17.78,
             "pbr": 1.32,
+=======
+            "per": 17.55,
+            "pbr": 1.31,
+>>>>>>> Stashed changes
             "dividend_yield": "0.93%",
             "debt_ratio": "66.38%",
             "current_ratio": "136.85%",
@@ -305,6 +398,7 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
             "name": "신한지주",
             "ticker": "055550",
             "date": "2026-04-09",
@@ -355,6 +449,8 @@
         },
         {
             "rank": null,
+=======
+>>>>>>> Stashed changes
             "name": "셀트리온",
             "ticker": "068270",
             "date": "2026-04-09",
@@ -368,8 +464,13 @@
             "gp_a": "0.0799",
             "eps": 1914.67,
             "bps": 80356.69,
+<<<<<<< Updated upstream
             "per": 104.46,
             "pbr": 2.49,
+=======
+            "per": 105.24,
+            "pbr": 2.51,
+>>>>>>> Stashed changes
             "dividend_yield": "0.37%",
             "debt_ratio": "19.77%",
             "current_ratio": "175.21%",
@@ -380,6 +481,7 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
             "name": "삼성전기",
             "ticker": "009150",
             "date": "2026-04-09",
@@ -401,6 +503,54 @@
             "rev_growth": "+15.54%",
             "op_growth": "+14.95%",
             "ni_growth": "+56.10%",
+=======
+            "name": "삼성생명",
+            "ticker": "032830",
+            "date": "2026-04-09",
+            "close_price": 230000.0,
+            "volume": 453988,
+            "industry": "",
+            "ceo": "홍원학",
+            "roe": "6.9%",
+            "roa": "0.72%",
+            "op_margin": "N/A",
+            "gp_a": "0.0",
+            "eps": 12586.71,
+            "bps": 182308.07,
+            "per": 18.27,
+            "pbr": 1.26,
+            "dividend_yield": "2.3%",
+            "debt_ratio": "853.69%",
+            "current_ratio": "N/A",
+            "rev_growth": "N/A",
+            "op_growth": "N/A",
+            "ni_growth": "+11.14%",
+>>>>>>> Stashed changes
+            "latest_event": "없음"
+        },
+        {
+            "rank": null,
+            "name": "신한지주",
+            "ticker": "055550",
+            "date": "2026-04-09",
+            "close_price": 96600.0,
+            "volume": 1334538,
+            "industry": "",
+            "ceo": "진옥동",
+            "roe": "7.75%",
+            "roa": "0.62%",
+            "op_margin": "N/A",
+            "gp_a": "0.0",
+            "eps": 9603.14,
+            "bps": 123923.93,
+            "per": 10.06,
+            "pbr": 0.78,
+            "dividend_yield": "3.64%",
+            "debt_ratio": "1157.65%",
+            "current_ratio": "N/A",
+            "rev_growth": "N/A",
+            "op_growth": "N/A",
+            "ni_growth": "+1.79%",
             "latest_event": "없음"
         },
         {
@@ -418,8 +568,13 @@
             "gp_a": "0.0762",
             "eps": 7449.6,
             "bps": 279172.58,
+<<<<<<< Updated upstream
             "per": 64.84,
             "pbr": 1.73,
+=======
+            "per": 64.43,
+            "pbr": 1.72,
+>>>>>>> Stashed changes
             "dividend_yield": "0.36%",
             "debt_ratio": "88.24%",
             "current_ratio": "95.2%",
@@ -430,6 +585,34 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
+=======
+            "name": "삼성전기",
+            "ticker": "009150",
+            "date": "2026-04-09",
+            "close_price": 516000.0,
+            "volume": 487268,
+            "industry": "",
+            "ceo": "장덕현",
+            "roe": "7.8%",
+            "roa": "5.5%",
+            "op_margin": "7.14%",
+            "gp_a": "0.1532",
+            "eps": 9673.68,
+            "bps": 124025.25,
+            "per": 53.34,
+            "pbr": 4.16,
+            "dividend_yield": "0.46%",
+            "debt_ratio": "41.89%",
+            "current_ratio": "192.74%",
+            "rev_growth": "+15.54%",
+            "op_growth": "+14.95%",
+            "ni_growth": "+56.10%",
+            "latest_event": "없음"
+        },
+        {
+            "rank": null,
+>>>>>>> Stashed changes
             "name": "한화오션",
             "ticker": "042660",
             "date": "2026-04-09",
@@ -443,8 +626,13 @@
             "gp_a": "0.0383",
             "eps": 1723.95,
             "bps": 15872.7,
+<<<<<<< Updated upstream
             "per": 71.75,
             "pbr": 7.79,
+=======
+            "per": 71.64,
+            "pbr": 7.78,
+>>>>>>> Stashed changes
             "dividend_yield": "N/A",
             "debt_ratio": "266.9%",
             "current_ratio": "108.69%",
@@ -468,8 +656,13 @@
             "gp_a": "0.0",
             "eps": 2124.31,
             "bps": 28149.95,
+<<<<<<< Updated upstream
             "per": 31.42,
             "pbr": 2.37,
+=======
+            "per": 31.87,
+            "pbr": 2.4,
+>>>>>>> Stashed changes
             "dividend_yield": "0.44%",
             "debt_ratio": "1018.56%",
             "current_ratio": "N/A",
@@ -493,7 +686,11 @@
             "gp_a": "0.1211",
             "eps": 45471.29,
             "bps": 516495.7,
+<<<<<<< Updated upstream
             "per": 8.84,
+=======
+            "per": 8.83,
+>>>>>>> Stashed changes
             "pbr": 0.78,
             "dividend_yield": "1.62%",
             "debt_ratio": "44.4%",
@@ -518,8 +715,13 @@
             "gp_a": "0.2752",
             "eps": 13847.52,
             "bps": 41883.96,
+<<<<<<< Updated upstream
             "per": 72.29,
             "pbr": 23.9,
+=======
+            "per": 70.77,
+            "pbr": 23.4,
+>>>>>>> Stashed changes
             "dividend_yield": "0.72%",
             "debt_ratio": "151.77%",
             "current_ratio": "138.11%",
@@ -568,8 +770,13 @@
             "gp_a": "0.0",
             "eps": 13754.47,
             "bps": 159048.11,
+<<<<<<< Updated upstream
             "per": 8.67,
             "pbr": 0.75,
+=======
+            "per": 8.51,
+            "pbr": 0.74,
+>>>>>>> Stashed changes
             "dividend_yield": "4.67%",
             "debt_ratio": "1363.73%",
             "current_ratio": "N/A",
@@ -580,6 +787,34 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
+=======
+            "name": "고려아연",
+            "ticker": "010130",
+            "date": "2026-04-09",
+            "close_price": 1526000.0,
+            "volume": 29220,
+            "industry": "",
+            "ceo": "박기덕",
+            "roe": "2.56%",
+            "roa": "1.32%",
+            "op_margin": "6.0%",
+            "gp_a": "0.0",
+            "eps": 10711.99,
+            "bps": 417709.52,
+            "per": 142.46,
+            "pbr": 3.65,
+            "dividend_yield": "1.31%",
+            "debt_ratio": "94.75%",
+            "current_ratio": "118.86%",
+            "rev_growth": "+24.20%",
+            "op_growth": "+9.63%",
+            "ni_growth": "-63.48%",
+            "latest_event": "없음"
+        },
+        {
+            "rank": null,
+>>>>>>> Stashed changes
             "name": "NAVER",
             "ticker": "035420",
             "date": "2026-04-09",
@@ -593,7 +828,11 @@
             "gp_a": "0.0",
             "eps": 12924.23,
             "bps": 180626.45,
+<<<<<<< Updated upstream
             "per": 15.67,
+=======
+            "per": 15.59,
+>>>>>>> Stashed changes
             "pbr": 1.12,
             "dividend_yield": "1.31%",
             "debt_ratio": "41.36%",
@@ -618,7 +857,11 @@
             "gp_a": "0.0523",
             "eps": 12530.69,
             "bps": 812612.2,
+<<<<<<< Updated upstream
             "per": 29.43,
+=======
+            "per": 29.29,
+>>>>>>> Stashed changes
             "pbr": 0.45,
             "dividend_yield": "2.72%",
             "debt_ratio": "68.27%",
@@ -630,6 +873,7 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
             "name": "HD한국조선해양",
             "ticker": "009540",
             "date": "2026-04-09",
@@ -655,6 +899,8 @@
         },
         {
             "rank": null,
+=======
+>>>>>>> Stashed changes
             "name": "한국전력",
             "ticker": "015760",
             "date": "2026-04-09",
@@ -668,7 +914,11 @@
             "gp_a": "0.0463",
             "eps": 5642.01,
             "bps": 64431.69,
+<<<<<<< Updated upstream
             "per": 7.71,
+=======
+            "per": 7.69,
+>>>>>>> Stashed changes
             "pbr": 0.67,
             "dividend_yield": "3.55%",
             "debt_ratio": "496.69%",
@@ -676,6 +926,56 @@
             "rev_growth": "+5.87%",
             "op_growth": "+284.18%",
             "ni_growth": "+176.80%",
+            "latest_event": "없음"
+        },
+        {
+            "rank": null,
+            "name": "HD한국조선해양",
+            "ticker": "009540",
+            "date": "2026-04-09",
+            "close_price": 391000.0,
+            "volume": 193950,
+            "industry": "",
+            "ceo": "정기선, 김형관 (각자 대표이사)",
+            "roe": "10.28%",
+            "roa": "3.96%",
+            "op_margin": "5.62%",
+            "gp_a": "0.0707",
+            "eps": 20569.72,
+            "bps": 200182.24,
+            "per": 19.01,
+            "pbr": 1.95,
+            "dividend_yield": "4.45%",
+            "debt_ratio": "159.39%",
+            "current_ratio": "105.72%",
+            "rev_growth": "+19.92%",
+            "op_growth": "+408.07%",
+            "ni_growth": "+903.64%",
+            "latest_event": "없음"
+        },
+        {
+            "rank": null,
+            "name": "한미반도체",
+            "ticker": "042700",
+            "date": "2026-04-09",
+            "close_price": 286000.0,
+            "volume": 646513,
+            "industry": "",
+            "ceo": "곽동신",
+            "roe": "28.22%",
+            "roa": "21.47%",
+            "op_margin": "45.69%",
+            "gp_a": "0.4424",
+            "eps": 1608.96,
+            "bps": 5702.38,
+            "per": 177.75,
+            "pbr": 50.15,
+            "dividend_yield": "0.28%",
+            "debt_ratio": "31.43%",
+            "current_ratio": "254.8%",
+            "rev_growth": "+251.50%",
+            "op_growth": "+638.74%",
+            "ni_growth": "-42.88%",
             "latest_event": "없음"
         },
         {
@@ -693,8 +993,13 @@
             "gp_a": "0.1273",
             "eps": 23940.68,
             "bps": 220755.55,
+<<<<<<< Updated upstream
             "per": 122.59,
             "pbr": 13.3,
+=======
+            "per": 120.38,
+            "pbr": 13.06,
+>>>>>>> Stashed changes
             "dividend_yield": "0.26%",
             "debt_ratio": "202.53%",
             "current_ratio": "98.18%",
@@ -705,6 +1010,7 @@
         },
         {
             "rank": null,
+<<<<<<< Updated upstream
             "name": "한미반도체",
             "ticker": "042700",
             "date": "2026-04-09",
@@ -726,6 +1032,29 @@
             "rev_growth": "+251.50%",
             "op_growth": "+638.74%",
             "ni_growth": "-42.88%",
+=======
+            "name": "한화시스템",
+            "ticker": "272210",
+            "date": "2026-04-09",
+            "close_price": 137100.0,
+            "volume": 1522186,
+            "industry": "",
+            "ceo": "손재일",
+            "roe": "18.43%",
+            "roa": "7.78%",
+            "op_margin": "7.82%",
+            "gp_a": "0.0726",
+            "eps": 2381.79,
+            "bps": 12922.48,
+            "per": 57.56,
+            "pbr": 10.61,
+            "dividend_yield": "0.36%",
+            "debt_ratio": "136.88%",
+            "current_ratio": "85.4%",
+            "rev_growth": "+14.29%",
+            "op_growth": "+136.18%",
+            "ni_growth": "+29.82%",
+>>>>>>> Stashed changes
             "latest_event": "없음"
         }
     ]
