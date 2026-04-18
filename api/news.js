@@ -1,6 +1,13 @@
 module.exports = async (req, res) => {
+  // CORS Header
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  
+  // Edge Caching 헤더 (10분 캐싱)
+  // s-maxage=600: Vercel Edge 네트워크에서 600초(10분) 동안 동일 요청에 대한 캐시 유지
+  // stale-while-revalidate=30: 캐시 만료 시 최대 30초 동안 구버전 서빙 가능, 백그라운드 재조회 허용
+  res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=30');
+
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const ticker = req.query.ticker;
@@ -8,7 +15,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Missing ticker' });
   }
 
-  const targetUrl = `https://finance.naver.com/item/news_news.naver?code=${ticker}&page=1`;
+  const targetUrl = `https://m.stock.naver.com/api/news/stock/${ticker}?pageSize=10&page=1`;
   try {
     const response = await fetch(targetUrl, {
       headers: { 'User-Agent': 'Mozilla/5.0' }
@@ -16,34 +23,28 @@ module.exports = async (req, res) => {
     
     if (!response.ok) throw new Error('Fetch failed');
 
-    const buffer = await response.arrayBuffer();
-    const decoder = new TextDecoder('euc-kr');
-    const html = decoder.decode(buffer);
-
-    // 단순 정규식을 사용한 HTML 파싱
-    const articles = [];
-    const titleRegex = /<td class="title">\s*<a href="([^"]+)"[^>]*>([^<]+)<\/a>\s*<\/td>/g;
-    const infoRegex = /<td class="info">([^<]+)<\/td>/g;
-    const dateRegex = /<td class="date">([^<]+)<\/td>/g;
-
-    let titleMatch, infoMatch, dateMatch;
-
-    while ((titleMatch = titleRegex.exec(html)) !== null) {
-      infoMatch = infoRegex.exec(html);
-      dateMatch = dateRegex.exec(html);
-
-      if (infoMatch && dateMatch) {
-        let link = ("https://finance.naver.com" + titleMatch[1]).replace(/&amp;/g, '&');
-        articles.push({
-          link: link,
-          title: titleMatch[2].trim(),
-          provider: infoMatch[1].trim(),
-          date: dateMatch[1].trim()
-        });
-      }
+    const json = await response.json();
+    
+    if (!json || json.length === 0 || !json[0].items) {
+      return res.status(200).json({ data: [] });
     }
 
-    return res.status(200).json({ data: articles.slice(0, 10) });
+    const articles = json[0].items.map(item => {
+      // 날짜 포맷 (YYYYMMDDHHMM -> YYYY-MM-DD HH:MM)
+      let dt = item.datetime || "";
+      if(dt.length >= 12) {
+        dt = `${dt.slice(0,4)}.${dt.slice(4,6)}.${dt.slice(6,8)} ${dt.slice(8,10)}:${dt.slice(10,12)}`;
+      }
+
+      return {
+        link: item.mobileNewsUrl || `https://finance.naver.com/item/news_read.naver?article_id=${item.articleId}&office_id=${item.officeId}&code=${ticker}`,
+        title: item.titleFull || item.title,
+        provider: item.officeName,
+        date: dt
+      };
+    });
+
+    return res.status(200).json({ data: articles });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
