@@ -4,9 +4,10 @@ import os
 from datetime import datetime
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-MARKET_PATH = os.path.join(base_dir, "top30_market_data.json")
-QUANT_PATH  = os.path.join(base_dir, "dart_quant_top30.json")
-EXPORT_PATH = os.path.join(base_dir, "kospi_top30_api.json")
+MARKET_PATH = os.path.join(base_dir, "kospi200_market_data.json")
+QUANT_PATH  = os.path.join(base_dir, "dart_quant_kospi200.json")
+TAGS_PATH   = os.path.join(base_dir, "kospi200_tags.json")
+EXPORT_PATH = os.path.join(base_dir, "api_data_kospi200.json")
 
 def generate_export_json():
     if not os.path.exists(MARKET_PATH) or not os.path.exists(QUANT_PATH):
@@ -19,6 +20,11 @@ def generate_export_json():
     with open(QUANT_PATH, "r", encoding="utf-8") as f:
         quant_obj = json.load(f)
         
+    tags_dict = {}
+    if os.path.exists(TAGS_PATH):
+        with open(TAGS_PATH, "r", encoding="utf-8") as f:
+            tags_dict = json.load(f)
+            
     quant_dict = {
         item["기업_식별_정보"]["종목코드"]: item 
         for item in quant_obj.get("data", [])
@@ -70,6 +76,8 @@ def generate_export_json():
             "ni_growth": grow.get("순이익성장률_전년비"),
 
             "latest_event": q.get("최근_주요_이벤트", [{}])[0].get("공시명", "없음") if q.get("최근_주요_이벤트") else "없음",
+            
+            "tags": tags_dict.get(ticker, {}).get("tags", [])
         }
         result.append(flat_item)
 

@@ -26,8 +26,8 @@ def get_target_business_day():
 # 하위 호환용 alias
 get_prev_business_day = get_target_business_day
 
-# top30.py 의 함수를 직접 호출
-from top30 import get_kospi_top_30
+# kospi200.py 의 함수를 직접 호출
+from kospi200 import get_kospi_200
 
 
 def fetch_yahoo_finance_data(stock_list):
@@ -71,9 +71,9 @@ def fetch_yahoo_finance_data(stock_list):
 
 
 if __name__ == "__main__":
-    # 1단계: top30.py 로 코스피 시가총액 상위 30개 종목 조회
-    print("=== [1단계] 코스피 시가총액 상위 30 조회 (top30.py) ===")
-    stock_list = get_kospi_top_30()
+    # 1단계: kospi200.py 로 코스피 상위 200개 종목 조회
+    print("=== [1단계] 코스피 200 조회 (kospi200.py) ===")
+    stock_list = get_kospi_200()
 
     if not stock_list:
         print("종목 목록을 가져오지 못했습니다.")
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     data_set = fetch_yahoo_finance_data(stock_list)
 
     # 3단계: JSON 저장
-    output_file = "top30_market_data.json"
+    output_file = "kospi200_market_data.json"
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(data_set, f, ensure_ascii=False, indent=4)
 

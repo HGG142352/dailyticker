@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOSPI Top 30 대시보드</title>
+  <title>KOSPI 200 대시보드</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -99,6 +99,19 @@
     }
     .name-badge:hover{ background:rgba(79,142,247,.3);border-color:var(--accent);transform:scale(1.04); }
     .ticker-cell{ font-family:monospace;color:var(--muted);font-size:12px; }
+
+    /* ── 태그 배지 스타일 ────────────────────────────── */
+    .tags-container { display:flex; gap:4px; flex-wrap:wrap; margin-top:6px; }
+    .tag-badge {
+      display:inline-block; padding:2px 8px; border-radius:12px;
+      font-size:10px; font-weight:600; text-transform:uppercase;
+      border: 1px solid transparent; white-space:nowrap;
+    }
+    .tag-sector { background:rgba(255,255,255,0.06); color:var(--text); border-color:var(--border); }
+    .tag-policy { background:rgba(124,58,237,0.15); color:#a78bfa; border-color:rgba(124,58,237,0.3); } /* 보라색 */
+    .tag-theme  { background:rgba(245,158,11,0.15); color:#fbbf24; border-color:rgba(245,158,11,0.3); } /* 노란색 */
+    .tag-mom    { background:rgba(239,68,68,0.15); color:#f87171; border-color:rgba(239,68,68,0.3);   } /* 붉은색 */
+    .tag-fund   { background:rgba(34,197,94,0.15); color:#4ade80; border-color:rgba(34,197,94,0.3);   } /* 녹색 */
 
     #log-box{ display:none;margin-top:20px;background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;font-family:monospace;font-size:12px;color:#94a3b8;white-space:pre-wrap;max-height:200px;overflow-y:auto; }
     #error-box{ display:none;margin-top:20px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius);padding:16px 20px;color:#fca5a5;font-size:13px; }
@@ -215,7 +228,7 @@
   <div class="logo">
     <div class="logo-icon">📈</div>
     <div>
-      <div class="logo-text">KOSPI Top 30</div>
+      <div class="logo-text">KOSPI 200</div>
       <div class="logo-sub">시가총액 기준 실시간 대시보드</div>
     </div>
   </div>
@@ -283,14 +296,16 @@
 <script>
   let allRows   = [];
   let quantData = {};   // ticker → quant dict
+  let tagsData  = {};   // ticker → tags array
 
-  // ── GitHub Raw 기본 URL ──────────────────────────────
-  const RAW_BASE = 'https://raw.githubusercontent.com/HGG142352/dailyticker/main';
+  // ── 데이터 소스 (기본 로컬 우선, 실패시 GitHub로 폴백 가능하지만 여기선 로컬 우선) ─
+  const RAW_BASE = '.';
 
   // ── 퀀트 데이터 로드 (GitHub Raw) ───────────────────
   async function loadQuantData() {
     try {
-      const res = await fetch(`${RAW_BASE}/dart_quant_top30.json?t=${Date.now()}`);
+      let res = await fetch(`${RAW_BASE}/dart_quant_kospi200.json?t=${Date.now()}`);
+      if (!res.ok) res = await fetch(`https://raw.githubusercontent.com/HGG142352/dailyticker/main/dart_quant_kospi200.json?t=${Date.now()}`);
       if (res.ok) {
         const j = await res.json();
         const obj = {};
@@ -302,10 +317,22 @@
     } catch(e){ console.error('퀀트 데이터 파싱 오류:', e); }
   }
 
+  // ── 태그 데이터 로드 ───────────────────
+  async function loadTagsData() {
+    try {
+      let res = await fetch(`${RAW_BASE}/kospi200_tags.json?t=${Date.now()}`);
+      if (!res.ok) res = await fetch(`https://raw.githubusercontent.com/HGG142352/dailyticker/main/kospi200_tags.json?t=${Date.now()}`);
+      if (res.ok) {
+        tagsData = await res.json();
+      }
+    } catch(e){ console.error('태그 데이터 파싱 오류:', e); }
+  }
+
   // ── 마켓 데이터 로드 (GitHub Raw) ───────────────────
   async function loadMarketData() {
     try {
-      const res = await fetch(`${RAW_BASE}/top30_market_data.json?t=${Date.now()}`);
+      let res = await fetch(`${RAW_BASE}/kospi200_market_data.json?t=${Date.now()}`);
+      if (!res.ok) res = await fetch(`https://raw.githubusercontent.com/HGG142352/dailyticker/main/kospi200_market_data.json?t=${Date.now()}`);
       if (res.ok) {
         const data = await res.json();
         allRows = data;
@@ -327,6 +354,7 @@
     btn.disabled = true;
     btn.textContent = '⏳ 로딩 중...';
     await loadQuantData();
+    await loadTagsData();
     await loadMarketData();
     btn.disabled = false;
     btn.innerHTML = '🔄 새로고침';
@@ -335,6 +363,7 @@
   // ── 초기화 ───────────────────────────────────────────
   async function init() {
     await loadQuantData();
+    await loadTagsData();
     await loadMarketData();
     // 30분마다 자동 갱신
     setInterval(() => {
@@ -366,16 +395,29 @@
       tr.dataset.name=r.name; tr.dataset.ticker=r.ticker;
       const hasQuant = !!quantData[r.ticker];
       const badgeTitle = hasQuant ? '클릭하여 DART 퀀트 정보 보기' : '퀀트 데이터 없음';
+      const tagsObj = tagsData[r.ticker] || {tags: []};
+      const tagsHtml = tagsObj.tags.map(t => {
+        let catClass = 'tag-sector'; // default
+        if(['코리아 밸류업','MSCI 편입','금투세 수혜'].includes(t)) catClass = 'tag-policy';
+        else if(['고배당','흑자전환','현금부자'].includes(t)) catClass = 'tag-fund';
+        else if(['신고가','거래폭발','골든크로스'].includes(t)) catClass = 'tag-mom';
+        else if(['HBM','CXL','온디바이스 AI','SMR','LFP','전고체','우주항공','K-방산','K-뷰티'].some(kw => t.includes(kw))) catClass = 'tag-theme';
+        return `<span class="tag-badge ${catClass}">${t}</span>`;
+      }).join('');
+
       tr.innerHTML=`
         <td>${i+1}</td>
         <td>${r.date}</td>
         <td><span class="ticker-cell">${r.ticker}</span></td>
         <td>
-          <span class="name-badge" title="${badgeTitle}"
-                onclick="openPanel('${r.ticker}','${r.name}')"
-                style="${hasQuant?'':'opacity:.5;cursor:default'}">
-            ${r.name}
-          </span>
+          <div>
+            <span class="name-badge" title="${badgeTitle}"
+                  onclick="openPanel('${r.ticker}','${r.name}')"
+                  style="${hasQuant?'':'opacity:.5;cursor:default'}">
+              ${r.name}
+            </span>
+          </div>
+          ${tagsHtml ? `<div class="tags-container">${tagsHtml}</div>` : ''}
         </td>
         <td class="num">${fmt(r.open)}</td>
         <td class="num">${fmt(r.high)}</td>

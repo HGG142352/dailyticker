@@ -4,7 +4,7 @@ dart_quant.py
 top30.py 의 코스피 상위 30개 종목에 대해 DART openAPI 를 호출하여
 퀀트 분석용 JSON 을 생성합니다.
 
-출력: dart_quant_top30.json
+출력: dart_quant_kospi200.json
 사용 API:
   - company.json       : 기업 기본정보
   - fnlttSinglAcnt     : 주요 재무지표 요약 (3개년)
@@ -18,12 +18,12 @@ from datetime import datetime
 from dotenv import load_dotenv
 import yfinance as yf
 from dart_api import download_and_build_map
-from top30   import get_kospi_top_30
+from kospi200   import get_kospi_200
 
 load_dotenv()
 DART_API_KEY = os.getenv("DART_API_KEY")
 BASE_URL     = "https://opendart.fss.or.kr/api"
-OUTPUT_FILE  = "dart_quant_top30.json"
+OUTPUT_FILE  = "dart_quant_kospi200.json"
 
 YEARS       = ["2022", "2023", "2024"]
 LATEST_YEAR = YEARS[-1]
@@ -302,15 +302,15 @@ if __name__ == "__main__":
                if isinstance(corp_map_obj, dict) else \
                {r["ticker"]: r for r in corp_map_obj}
 
-    print("=== [1단계] 코스피 상위 30 조회 ===")
-    top30 = get_kospi_top_30()
-    # 현재 주가 맵 (top30.py 반환값에 price 포함)
-    price_map = {item["ticker"]: item.get("price", 0) for item in top30}
-    print(f"  → {len(top30)}개 종목\n")
+    print("=== [1단계] 코스피 200 조회 ===")
+    kospi200 = get_kospi_200()
+    # 현재 주가 맵 (kospi200.py 반환값에 price 포함)
+    price_map = {item["ticker"]: item.get("price", 0) for item in kospi200}
+    print(f"  → {len(kospi200)}개 종목\n")
 
     print("=== [2단계] DART 퀀트 데이터 수집 ===")
     results = []
-    for item in top30:
+    for item in kospi200:
         ticker = item["ticker"]
         name   = item["name"]
         dart   = corp_map.get(ticker)
