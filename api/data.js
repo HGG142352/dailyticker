@@ -5,7 +5,7 @@
  */
 
 const GITHUB_RAW =
-  'https://raw.githubusercontent.com/HGG142352/dailyticker/main/kospi_top30_api.json';
+  'https://raw.githubusercontent.com/HGG142352/dailyticker/main/api_data_kospi200.json';
 
 module.exports = async (req, res) => {
   // CORS 헤더
