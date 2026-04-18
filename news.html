@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>최신 뉴스 스크랩</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #0a0f1e;
+      --surface: rgba(255,255,255,0.05);
+      --border:  rgba(255,255,255,0.10);
+      --accent:  #4f8ef7;
+      --text:    #e2e8f0;
+      --muted:   #94a3b8;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text);
+      margin: 0; padding: 40px;
+    }
+    .container {
+      max-width: 800px; margin: 0 auto;
+    }
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .title {
+      font-size: 24px; font-weight: 700;
+    }
+    .title span { color: var(--accent); }
+    .btn-back {
+      padding: 8px 16px; background: var(--surface); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer; text-decoration: none; font-size: 14px;
+    }
+    .btn-back:hover { background: rgba(255,255,255,0.1); }
+    
+    .news-list { display: flex; flex-direction: column; gap: 16px; }
+    .news-item {
+      padding: 20px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; transition: transform 0.2s, background 0.2s;
+      text-decoration: none; color: var(--text); display: block;
+    }
+    .news-item:hover {
+      background: rgba(79,142,247,0.05); border-color: rgba(79,142,247,0.3);
+      transform: translateY(-2px);
+    }
+    .news-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+    .news-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
+    .provider { font-weight: 600; color: #cbd5e1; }
+    .loading { text-align: center; color: var(--muted); padding: 40px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="title"><span id="stock-name">종목</span> 관련 증권/경제 뉴스 📰</div>
+    <a href="index.html" class="btn-back">🔙 대시보드로 돌아가기</a>
+  </div>
+  
+  <div id="news-container" class="news-list">
+    <div class="loading">뉴스를 불러오는 중입니다...</div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const ticker = params.get('ticker');
+  const name = params.get('name');
+  
+  if(name) {
+    document.getElementById('stock-name').textContent = name;
+  }
+
+  async function loadNews() {
+    if(!ticker) {
+      document.getElementById('news-container').innerHTML = '<div class="loading">종목 코드가 제공되지 않았습니다.</div>';
+      return;
+    }
+    try {
+      const res = await fetch(`/api/news?ticker=${ticker}`);
+      if(!res.ok) throw new Error('API 오류');
+      const json = await res.json();
+      
+      const container = document.getElementById('news-container');
+      container.innerHTML = '';
+      
+      if(!json.data || json.data.length === 0) {
+        container.innerHTML = '<div class="loading">최신 뉴스가 없습니다.</div>';
+        return;
+      }
+      
+      json.data.forEach(article => {
+        const a = document.createElement('a');
+        a.href = article.link;
+        a.target = '_blank';
+        a.className = 'news-item';
+        a.innerHTML = `
+          <div class="news-title">${article.title}</div>
+          <div class="news-meta">
+            <span class="provider">${article.provider}</span>
+            <span>${article.date}</span>
+          </div>
+        `;
+        container.appendChild(a);
+      });
+    } catch(err) {
+      document.getElementById('news-container').innerHTML = `<div class="loading">뉴스를 가져오는데 실패했습니다: ${err.message}</div>`;
+    }
+  }
+  
+  loadNews();
+</script>
+</body>
+</html>

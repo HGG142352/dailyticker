@@ -4,10 +4,15 @@
     "api/data.js": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/news.js": {
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "routes": [
     { "src": "/api/data", "dest": "/api/data.js" },
+    { "src": "/api/news", "dest": "/api/news.js" },
     { "src": "/(.*)",     "dest": "/index.html" }
   ],
   "headers": [

@@ -408,14 +408,16 @@
       tr.innerHTML=`
         <td>${i+1}</td>
         <td>${r.date}</td>
-        <td><span class="ticker-cell">${r.ticker}</span></td>
+        <td>
+          <span class="ticker-cell" style="cursor:pointer; font-weight:bold; color:var(--accent);" onclick="openPanel('${r.ticker}','${r.name}')" title="DART 퀀트 분석 보기">
+            ${r.ticker} 📊
+          </span>
+        </td>
         <td>
           <div>
-            <span class="name-badge" title="${badgeTitle}"
-                  onclick="openPanel('${r.ticker}','${r.name}')"
-                  style="${hasQuant?'':'opacity:.5;cursor:default'}">
-              ${r.name}
-            </span>
+            <a href="news.html?ticker=${r.ticker}&name=${r.name}" target="_blank" class="name-badge" style="text-decoration:none;" title="최신 뉴스 보기">
+              ${r.name} 📰
+            </a>
           </div>
           ${tagsHtml ? `<div class="tags-container">${tagsHtml}</div>` : ''}
         </td>
