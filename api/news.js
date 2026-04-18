@@ -25,11 +25,19 @@ module.exports = async (req, res) => {
 
     const json = await response.json();
     
-    if (!json || json.length === 0 || !json[0].items) {
+    if (!json || json.length === 0) {
       return res.status(200).json({ data: [] });
     }
 
-    const articles = json[0].items.map(item => {
+    // 네이버 API는 뉴스들을 블록(그룹) 단위 배열로 내려주므로, 모든 블록의 items를 하나로 합쳐야 합니다.
+    let allItems = [];
+    json.forEach(block => {
+      if (block.items && Array.isArray(block.items)) {
+        allItems = allItems.concat(block.items);
+      }
+    });
+
+    const articles = allItems.map(item => {
       // 날짜 포맷 (YYYYMMDDHHMM -> YYYY-MM-DD HH:MM)
       let dt = item.datetime || "";
       if(dt.length >= 12) {
