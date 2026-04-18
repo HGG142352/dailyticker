@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Missing ticker' });
   }
 
-  const targetUrl = `https://m.stock.naver.com/api/news/stock/${ticker}?pageSize=10&page=1`;
+  const targetUrl = `https://m.stock.naver.com/api/news/stock/${ticker}?pageSize=30&page=1`;
   try {
     const response = await fetch(targetUrl, {
       headers: { 'User-Agent': 'Mozilla/5.0' }
