@@ -50,6 +50,23 @@
     .news-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
     .provider { font-weight: 600; color: #cbd5e1; }
     .loading { text-align: center; color: var(--muted); padding: 40px; }
+
+    /* --- Consensus Card --- */
+    .consensus-card {
+      margin-bottom: 24px; padding: 24px;
+      background: linear-gradient(135deg, rgba(79,142,247,0.1), rgba(124,58,237,0.1));
+      border: 1px solid var(--accent); border-radius: 16px;
+      display: none;
+    }
+    .consensus-title { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 12px; }
+    .consensus-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+    .stat-val { font-size: 18px; font-weight: 700; color: var(--text); }
+    .stat-val.buy { color: var(--accent); }
+    .stat-val.sell { color: #ef4444; }
+    .stat-val.neutral { color: #94a3b8; }
+    .stat-val.price { color: #22c55e; }
   </style>
 </head>
 <body>
@@ -58,6 +75,16 @@
   <div class="header">
     <div class="title"><span id="stock-name">종목</span> 관련 증권/경제 뉴스 📰</div>
     <a href="index.html" class="btn-back">🔙 대시보드로 돌아가기</a>
+  </div>
+
+  <div id="consensus-container" class="consensus-card">
+    <div class="consensus-title">💡 최근 1주일 증권사 리포트/의견 분석</div>
+    <div class="consensus-stats">
+      <div class="stat-item"><div class="stat-label">매수 의견</div><div id="c-buy" class="stat-val buy">-</div></div>
+      <div class="stat-item"><div class="stat-label">매도 의견</div><div id="c-sell" class="stat-val sell">-</div></div>
+      <div class="stat-item"><div class="stat-label">중립/보유</div><div id="c-neutral" class="stat-val neutral">-</div></div>
+      <div class="stat-item"><div class="stat-label">평균 목표가</div><div id="c-price" class="stat-val price">-</div></div>
+    </div>
   </div>
   
   <div id="news-container" class="news-list">
@@ -84,6 +111,17 @@
       if(!res.ok) throw new Error('API 오류');
       const json = await res.json();
       
+      // 컨센서스 요약 렌더링
+      if(json.summary && (json.summary.price_mentions > 0 || json.summary.buy + json.summary.sell + json.summary.neutral > 0)) {
+        document.getElementById('consensus-container').style.display = 'block';
+        document.getElementById('c-buy').textContent = json.summary.buy + '건';
+        document.getElementById('c-sell').textContent = json.summary.sell + '건';
+        document.getElementById('c-neutral').textContent = json.summary.neutral + '건';
+        document.getElementById('c-price').textContent = json.summary.avg_target > 0 
+          ? json.summary.avg_target.toLocaleString() + '원' 
+          : '의견 없음';
+      }
+
       const container = document.getElementById('news-container');
       container.innerHTML = '';
       
